@@ -5,6 +5,20 @@
 - [ ] Créer les controllers
 - [ ] Mettre en place les templates
 - [ ] Ajouter le CSS
+- [ ] Faire les maquettes
+- [ ] Backend GO
+- [ ] Page d'accueil
+- [ ] Page collection 
+- [ ] Page ressource
+- [ ] Page catégorie
+- [ ] Page favoris
+- [ ] Page Recherche
+- [ ] Page à propos
+- [ ] Système de recherche
+- [ ] Système de filtre
+- [ ] Système de pagination
+- [ ] Système de favoris
+- [ ] Diaporama de présentation
 
 ## En cours
 - [ ] 
