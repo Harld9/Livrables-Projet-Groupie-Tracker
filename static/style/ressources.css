@@ -20,33 +20,14 @@ button {
 
 header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   padding: 30px 10%;
 }
 
 .logo {
   cursor: pointer;
-  width: 50px;
-}
-
-button {
-  padding: 9px 25px;
-  background-color: rgba(0, 133, 169, 1);
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.3s ease 0s;
-}
-
-button :hover {
-  background-color: rgba(0, 136, 169, 0);
-}
-
-/*NAVBAR*/
-nav {
-  flex: 1;
-  display: flex;
-  justify-content: center;
+  width: 200px;
 }
 
 .navlinks {
@@ -64,4 +45,17 @@ nav {
 
 .navlinks li :hover {
   color: #0088a9;
+}
+
+button {
+  padding: 9px 25px;
+  background-color: rgba(0, 133, 169, 1);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
+}
+
+button :hover {
+  background-color: rgba(0, 136, 169, 0);
 }
