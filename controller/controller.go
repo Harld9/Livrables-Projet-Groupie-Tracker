@@ -14,8 +14,44 @@ func renderTemplate(w http.ResponseWriter, filename string, data map[string]stri
 type PageData struct {
 }
 
-func Home(w http.ResponseWriter, r *http.Request) {
+func Index(w http.ResponseWriter, r *http.Request) {
 	data := PageData{}
 	tmpl := template.Must(template.ParseFiles("template/index.html"))
+	tmpl.Execute(w, data)
+}
+
+func About(w http.ResponseWriter, r *http.Request) {
+	data := PageData{}
+	tmpl := template.Must(template.ParseFiles("template/about.html"))
+	tmpl.Execute(w, data)
+}
+
+func Categorie(w http.ResponseWriter, r *http.Request) {
+	data := PageData{}
+	tmpl := template.Must(template.ParseFiles("template/categorie.html"))
+	tmpl.Execute(w, data)
+}
+
+func Collection(w http.ResponseWriter, r *http.Request) {
+	data := PageData{}
+	tmpl := template.Must(template.ParseFiles("template/collection.html"))
+	tmpl.Execute(w, data)
+}
+
+func Recherche(w http.ResponseWriter, r *http.Request) {
+	data := PageData{}
+	tmpl := template.Must(template.ParseFiles("template/recherche.html"))
+	tmpl.Execute(w, data)
+}
+
+func Ressources(w http.ResponseWriter, r *http.Request) {
+	data := PageData{}
+	tmpl := template.Must(template.ParseFiles("template/ressources.html"))
+	tmpl.Execute(w, data)
+}
+
+func Favoris(w http.ResponseWriter, r *http.Request) {
+	data := PageData{}
+	tmpl := template.Must(template.ParseFiles("template/favoris.html"))
 	tmpl.Execute(w, data)
 }
