@@ -1,0 +1,17 @@
+# Racine du projet
+root = "."
+tmp_dir = "tmp"
+
+[build]
+# Sur Windows, GO génère un .exe
+cmd = "go build -o tmp/main.exe ."
+bin = "tmp/main.exe"
+
+# Extensions surveillées
+include_ext = ["go", "html"]
+
+# On ignore le dossier tmp sinon Air boucle sans fin
+exclude_dir = ["tmp", "vendor"]
+
+# Temps avant relance
+delay = 500

@@ -6,13 +6,15 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+body {
   background-color: #24252a;
 }
 li,
 a,
 button {
   font-family: "Montserrat", sans-serif;
-  font-weight: 500px;
+  font-weight: 500;
   font-size: 16px;
   color: #edf0f1;
   text-decoration: none;
@@ -38,7 +40,7 @@ button {
   transition: all 0.3s ease 0s;
 }
 
-button :hover {
+button:hover {
   background-color: rgba(0, 136, 169, 0);
 }
 
@@ -56,12 +58,32 @@ nav {
 .navlinks li {
   display: inline-block;
   padding: 0px 20px;
+  position: relative;
 }
 
 .navlinks li a {
   transition: all 0.3s ease 0s;
+  font-size: 20px;
 }
 
-.navlinks li :hover {
-  color: #0088a9;
+.navlinks li:hover {
+  background-color: rgba(0, 101, 127, 0);
+}
+
+/*MENU DEROULANT / DROPDOWN*/
+.dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #0f1012;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 12px 16px;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
 }

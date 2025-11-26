@@ -13,7 +13,7 @@ func New() *http.ServeMux {
 	mux.HandleFunc("/", controller.Home)
 
 	// Ajout des fichiers statiques
-	fileServer := http.FileServer(http.Dir("/static"))
+	fileServer := http.FileServer(http.Dir("static"))
 	mux.Handle("/static/", http.StripPrefix("/static/", fileServer))
 
 	return mux
