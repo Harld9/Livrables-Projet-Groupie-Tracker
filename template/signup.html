@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="/static/style/style.css">
-    <link rel="stylesheet" href="/static/style/login.css">
+    <link rel="stylesheet" href="/static/style/signup.css">
 </head>
 
 <body>
@@ -23,7 +23,7 @@
     </header>
 
     <div class="container">
-        <form class="loginform" method="post" action="/login">
+        <form class="signupform" method="post" action="/signup">
             <h2>{{ .Message }}</h2>
             <label>Pseudo :</label>
             <input type="text" name="pseudo" required>
@@ -31,7 +31,7 @@
             <input type="text" name="password" required></input>
             <button type="submit">Envoyer</button>
         </form>
-        <p>Vous avez déjà un compte ?</p><a href="signup/html" class="signup">Se connecter</a>
+        <p>Vous avez déjà un compte ?</p><a href="login" class="login">Se connecter</a>
     </div>
 </body>
 
