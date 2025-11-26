@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ressources</title>
+    <title>Login</title>
     <link rel="stylesheet" href="/static/style/style.css">
-    <link rel="stylesheet" href="/static/style/ressource.css">
+    <link rel="stylesheet" href="/static/style/login.css">
 </head>
 
 <body>
@@ -20,10 +20,19 @@
             </ul>
         </nav>
         <a class="cta" href="#"> <button> Page</button></a>
-
-
-
     </header>
+
+    <div class="container">
+        <form class="loginform" method="post" action="/login">
+            <h2>{{ .Message }}</h2>
+            <label>Pseudo :</label>
+            <input type="text" name="pseudo" required>
+            <label>Mot de passe :</label>
+            <input type="text" name="password" required></input>
+            <button type="submit">Envoyer</button>
+        </form>
+        <p>Vous n'avez pas de compte ?</p><a href="signup" class="signup">S'inscrire</a>
+    </div>
 </body>
 
 </html>
