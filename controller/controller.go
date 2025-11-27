@@ -1,7 +1,10 @@
 package controller
 
 import (
+	"GroupieTracker/functions"
+	"GroupieTracker/structure"
 	"html/template"
+	"log"
 	"net/http"
 )
 
@@ -11,51 +14,61 @@ func renderTemplate(w http.ResponseWriter, filename string, data map[string]stri
 	tmpl.Execute(w, data)                                              // Exécute le template et écrit le résultat dans la réponse HTTP
 }
 
+// Initialise la structure PageData qui sera chargée dans chaque template HTML
 type PageData struct {
+	PopularFilms []structure.PopularFilmsData
 }
 
+// Fonction qui gère le template de la page Accueil
 func Index(w http.ResponseWriter, r *http.Request) {
 	data := PageData{}
 	tmpl := template.Must(template.ParseFiles("template/index.html"))
 	tmpl.Execute(w, data)
 }
 
+// Fonction qui gère le template de la page À Propos
 func About(w http.ResponseWriter, r *http.Request) {
 	data := PageData{}
 	tmpl := template.Must(template.ParseFiles("template/about.html"))
 	tmpl.Execute(w, data)
 }
 
+// Fonction qui gère le template de la page Categorie
 func Categorie(w http.ResponseWriter, r *http.Request) {
 	data := PageData{}
 	tmpl := template.Must(template.ParseFiles("template/categorie.html"))
 	tmpl.Execute(w, data)
 }
 
+// Fonction qui gère le template de la page Collection
 func Collection(w http.ResponseWriter, r *http.Request) {
-	data := PageData{}
+	films, err := functions.GetPopularFilms()
+	if err != nil {
+		log.Println("Erreur récupération films:", err)
+		return
+	}
+	data := PageData{
+		PopularFilms: films,
+	}
 	tmpl := template.Must(template.ParseFiles("template/collection.html"))
 	tmpl.Execute(w, data)
 }
 
-func Recherche(w http.ResponseWriter, r *http.Request) {
-	data := PageData{}
-	tmpl := template.Must(template.ParseFiles("template/recherche.html"))
-	tmpl.Execute(w, data)
-}
-
+// Fonction qui gère le template de la page Ressources
 func Ressources(w http.ResponseWriter, r *http.Request) {
 	data := PageData{}
 	tmpl := template.Must(template.ParseFiles("template/ressources.html"))
 	tmpl.Execute(w, data)
 }
 
+// Fonction qui gère le template de la page Favoris
 func Favoris(w http.ResponseWriter, r *http.Request) {
 	data := PageData{}
 	tmpl := template.Must(template.ParseFiles("template/favoris.html"))
 	tmpl.Execute(w, data)
 }
 
+// Fonction qui gère le template de la page Login
 func Login(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost { // Si le formulaire est soumis en POST
 		// Récupération des données du formulaire
@@ -77,6 +90,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "login.html", data)
 }
 
+// Fonction qui gère le template de la page Signup
 func Signup(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost { // Si le formulaire est soumis en POST
 		// Récupération des données du formulaire

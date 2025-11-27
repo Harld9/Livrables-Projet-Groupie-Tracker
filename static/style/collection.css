@@ -1,1 +1,25 @@
 /*On va utiliser ce style CSS pour les classes spécifiques à la page collection*/
+.pfilmposter {
+  background: #313131;
+  padding: 20px;
+  border-radius: 10px;
+  width: 200px;
+}
+
+.filmspopulaires {
+}
+
+.PFilmunique {
+  background: #313131;
+  padding: 20px;
+  border-radius: 10px;
+  width: 200px;
+}
+
+h1 {
+  color: white;
+}
+
+h2 {
+  color: white;
+}

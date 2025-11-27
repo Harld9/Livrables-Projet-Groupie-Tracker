@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Collection</title>
     <link rel="stylesheet" href="/static/style/style.css">
-    <link rel="stylesheet" href="/static/style/ressource.css">
+    <link rel="stylesheet" href="/static/style/collection.css">
 </head>
 
 <body>
@@ -24,6 +24,19 @@
 
 
     </header>
+    <div class="filmspopulaires">
+        <h1>Films Populaires</h1>
+        <div class="listefilmspopulaires">
+
+            {{ range .PopularFilms }}
+            <div class="PFilmunique">
+                <h2>{{ .Title }}</h2>
+                <img src="{{ .Poster_path }}" alt="Poster du film" class="pfilmposter">
+            </div>
+            {{ end }}
+
+        </div>
+    </div>
 </body>
 
 </html>

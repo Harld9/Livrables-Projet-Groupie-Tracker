@@ -1,6 +1,6 @@
 //Bonus (Optionnel)
 
-package service
+package functions
 
 //Partie Connexion
 //Les deux fonctions doivent renvoyer true sinon on peut pas se connecter

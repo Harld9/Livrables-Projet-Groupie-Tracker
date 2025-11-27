@@ -14,7 +14,6 @@ func New() *http.ServeMux {
 	mux.HandleFunc("/about", controller.About)
 	mux.HandleFunc("/categorie", controller.Categorie)
 	mux.HandleFunc("/collection", controller.Collection)
-	mux.HandleFunc("/recherche", controller.Recherche)
 	mux.HandleFunc("/ressources", controller.Ressources)
 	mux.HandleFunc("/favoris", controller.Favoris)
 	mux.HandleFunc("/login", controller.Login)
