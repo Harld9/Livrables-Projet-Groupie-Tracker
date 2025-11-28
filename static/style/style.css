@@ -89,3 +89,8 @@ nav {
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
+.nomsite {
+  text-transform: uppercase;
+  color: #e50914;
+}
