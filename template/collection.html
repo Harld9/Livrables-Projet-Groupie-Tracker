@@ -20,21 +20,20 @@
             </ul>
         </nav>
         <a class="cta" href="#"> <button> Page</button></a>
-
-
-
     </header>
+
+
     <div class="filmspopulaires">
         <h1>Films Populaires</h1>
-        <div class="listefilmspopulaires">
-
+        <div class="film">
             {{ range .PopularFilms }}
-            <div class="PFilmunique">
-                <h2>{{ .Title }}</h2>
+            <div class="eachfilm">
                 <img src="{{ .Poster_path }}" alt="Poster du film" class="pfilmposter">
+
+                <h2>{{ .Title }}</h2>
+                <p class="releasedate">{{ .Release_date }}</p>
             </div>
             {{ end }}
-
         </div>
     </div>
 </body>
