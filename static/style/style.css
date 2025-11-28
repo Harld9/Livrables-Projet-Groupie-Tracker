@@ -32,6 +32,13 @@ header {
 .logo {
   cursor: pointer;
   width: 100px;
+  transition: all 0.3s cubic-bezier(0.67, 0.17, 0.4, 0.83);
+}
+
+.logo:hover {
+  cursor: pointer;
+  width: 100px;
+  transform: scale(1.05);
 }
 
 button {
@@ -74,29 +81,11 @@ nav {
   background-color: rgba(0, 101, 127, 0);
 }
 
-/*MENU DEROULANT / DROPDOWN*/
-.dropdown {
-  position: relative;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #0f1012;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  padding: 12px 16px;
-}
-
-.dropdown-content li a {
-  font-size: 14px;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
 .nomsite {
   text-transform: uppercase;
   color: #e50914;
+  transition: all 0.3s cubic-bezier(0.67, 0.17, 0.4, 0.83);
+}
+.nomsite:hover {
+  transform: scale(1.05);
 }
