@@ -112,23 +112,9 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "signup.html", data)
 }
 
-// Fonction qui gère le template de la page Films
-func Films(w http.ResponseWriter, r *http.Request) {
-	films, err := functions.GetPopularFilms()
-	if err != nil {
-		log.Println("Erreur récupération films:", err)
-		return
-	}
-	data := PageData{
-		PopularFilms: films,
-	}
-	tmpl := template.Must(template.ParseFiles("template/collection.html"))
-	tmpl.Execute(w, data)
-}
-
 // Fonction qui gère le template de la page Series
-func Series(w http.ResponseWriter, r *http.Request) {
+func Recherche(w http.ResponseWriter, r *http.Request) {
 	data := PageData{}
-	tmpl := template.Must(template.ParseFiles("template/series.html"))
+	tmpl := template.Must(template.ParseFiles("template/recherche.html"))
 	tmpl.Execute(w, data)
 }

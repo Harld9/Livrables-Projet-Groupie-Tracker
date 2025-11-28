@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil</title>
+    <title>Ressources</title>
     <link rel="stylesheet" href="/static/style/style.css">
-    <link rel="stylesheet" href="/static/style/films.css">
+    <link rel="stylesheet" href="/static/style/recherche.css">
 </head>
 
 <body>
     <header>
-        <a href="/"><img class="logo" src="/static/img/futurlogo.png" alt="logo"></a>
+        <a href="/"> <img class="logo" src="/static/img/futurlogo.png" alt="logo"></a>
         <p class="nomsite">Canal Moins</p>
         <nav>
             <ul class="navlinks">
@@ -28,19 +28,6 @@
 
 
     </header>
-    <div class="filmspopulaires">
-        <h1>Films Populaires</h1>
-        <div class="listefilmspopulaires">
-
-            {{ range .PopularFilms }}
-            <div class="PFilmunique">
-                <h2>{{ .Title }}</h2>
-                <img src="{{ .Poster_path }}" alt="Poster du film" class="pfilmposter">
-            </div>
-            {{ end }}
-
-        </div>
-    </div>
 </body>
 
 </html>
