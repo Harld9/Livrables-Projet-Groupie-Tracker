@@ -18,6 +18,8 @@ func New() *http.ServeMux {
 	mux.HandleFunc("/favoris", controller.Favoris)
 	mux.HandleFunc("/login", controller.Login)
 	mux.HandleFunc("/signup", controller.Signup)
+	mux.HandleFunc("/films", controller.Films)
+	mux.HandleFunc("/series", controller.Series)
 
 	// Ajout des fichiers statiques
 	fileServer := http.FileServer(http.Dir("static"))

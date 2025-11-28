@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Collection</title>
+    <title>Accueil</title>
     <link rel="stylesheet" href="/static/style/style.css">
-    <link rel="stylesheet" href="/static/style/collection.css">
+    <link rel="stylesheet" href="/static/style/films.css">
 </head>
 
 <body>
@@ -21,21 +21,24 @@
                 <li><a href="/categorie">Catégorie</a></li>
             </ul>
         </nav>
-        <a class="cta" href="#"> <button> Page</button></a>
+        <a><img src="/static/img/favorite_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Logo Favoris"></a>
+        <a><img src="/static/img/info_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.png" alt="Logo information"></a>
+        <a class="cta" href="login"> <button>Se connecter</button></a>
+
+
+
     </header>
-
-
     <div class="filmspopulaires">
         <h1>Films Populaires</h1>
-        <div class="film">
-            {{ range .PopularFilms }}
-            <div class="eachfilm">
-                <img src="{{ .Poster_path }}" alt="Poster du film" class="pfilmposter">
+        <div class="listefilmspopulaires">
 
+            {{ range .PopularFilms }}
+            <div class="PFilmunique">
                 <h2>{{ .Title }}</h2>
-                <p class="releasedate">{{ .Release_date }}</p>
+                <img src="{{ .Poster_path }}" alt="Poster du film" class="pfilmposter">
             </div>
             {{ end }}
+
         </div>
     </div>
 </body>
