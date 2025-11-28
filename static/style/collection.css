@@ -1,1 +1,36 @@
 /*On va utiliser ce style CSS pour les classes spécifiques à la page collection*/
+
+.eachfilm {
+  padding: 20px;
+  border-radius: 10px;
+  width: 200px;
+}
+
+.pfilmposter {
+  width: 180px;
+  border-radius: 10px;
+}
+
+.filmspopulaires {
+}
+
+.film {
+  display: flex;
+  gap: 20px;
+}
+
+.releasedate {
+  color: rgb(191, 191, 191);
+  font-size: 11px;
+}
+
+h1 {
+  color: white;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+h2 {
+  color: white;
+  font-size: 16px;
+}
