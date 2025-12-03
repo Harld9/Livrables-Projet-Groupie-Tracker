@@ -9,6 +9,7 @@
   position: absolute;
   left: 50%;
   transform: translate(-50%, -50%);
+  margin-top: 20px;
 }
 .search:focus-within {
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.75);
@@ -28,4 +29,44 @@
 .search-input::placeholder,
 .seach-icon {
   color: rgba(0, 0, 0, 0.5);
+}
+
+.eachfilm {
+  padding: 20px;
+  border-radius: 10px;
+  width: 1300px;
+}
+
+.pfilmposter {
+  width: 200px;
+  border-radius: 10px;
+}
+
+.filmspopulaires {
+}
+
+.film {
+  display: flex;
+  gap: 20px;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.releasedate {
+  color: rgb(191, 191, 191);
+  font-size: 13px;
+  text-align: center;
+}
+
+h1 {
+  color: white;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+h2 {
+  color: white;
+  font-size: 20px;
+  text-align: center;
 }
