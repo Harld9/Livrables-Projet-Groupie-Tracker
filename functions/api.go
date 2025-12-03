@@ -9,6 +9,7 @@ import (
 )
 
 func GetPopularFilms() ([]structure.PopularFilmsData, error) {
+
 	//Structure qui prend les données JSON
 	type ApiData struct {
 		Results []struct {

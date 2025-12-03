@@ -11,6 +11,7 @@
 
 body {
   background-color: #24252a;
+  min-height: 100vh;
 }
 
 li,
@@ -32,13 +33,22 @@ header {
 .logo {
   cursor: pointer;
   width: 100px;
-  transition: all 0.3s cubic-bezier(0.67, 0.17, 0.4, 0.83);
 }
 
-.logo:hover {
+.logoname {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  transition: transform 0.2s;
+}
+
+.logoname:hover {
   cursor: pointer;
-  width: 100px;
   transform: scale(1.05);
+}
+
+.logo-link {
+  padding: 0;
 }
 
 button {
@@ -84,8 +94,4 @@ nav {
 .nomsite {
   text-transform: uppercase;
   color: #e50914;
-  transition: all 0.3s cubic-bezier(0.67, 0.17, 0.4, 0.83);
-}
-.nomsite:hover {
-  transform: scale(1.05);
 }
