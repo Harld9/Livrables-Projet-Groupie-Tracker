@@ -112,9 +112,28 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 	renderTemplate(w, "signup.html", data)
 }
 
-// Fonction qui gère le template de la page Series
+// Fonction qui gère le template de la page Recherche
 func Recherche(w http.ResponseWriter, r *http.Request) {
-	data := PageData{}
+
+	var searchedfilms []structure.PopularFilmsData
+
+	if r.Method == http.MethodPost {
+		name := r.FormValue("search-query")
+
+		films, err := functions.GetSearchFilm(name)
+		searchedfilms = films
+		if err != nil {
+			log.Println("Erreur récupération films:", err)
+			return
+
+		}
+	}
+
+	data := PageData{
+		PopularFilms: searchedfilms,
+	}
+
 	tmpl := template.Must(template.ParseFiles("template/recherche.html"))
 	tmpl.Execute(w, data)
+
 }

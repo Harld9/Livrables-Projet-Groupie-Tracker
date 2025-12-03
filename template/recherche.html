@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recherche</title>
     <link rel="stylesheet" href="/static/style/style.css">
-    <link rel="stylesheet" href="/static/style/recherche.css">
+    <link rel="stylesheet" href="/static/style/collection.css">
 </head>
 
 <body>
@@ -32,22 +32,26 @@
 
     </header>
 
-    <form action="post">
+    <form method="post">
         <div class="search">
             <img src="/static/img/recherche_black.png" alt="Logo Recherche" class="search-icon">
-            <input type="search" class="search-input" placeholder="Recherche">
+            <input type="search" class="search-input" placeholder="Recherche" name="search-query">
         </div>
-
-
-
-
-
-
     </form>
 
+    <div class="filmspopulaires">
+        <h1>Films Populaires</h1>
+        <div class="film">
+            {{ range .PopularFilms }}
+            <div class="eachfilm">
+                <img src="{{ .Poster_path }}" alt="Poster du film" class="pfilmposter">
 
-
-
+                <h2>{{ .Title }}</h2>
+                <p class="releasedate">{{ .Release_date }}</p>
+            </div>
+            {{ end }}
+        </div>
+    </div>
 </body>
 
 </html>
