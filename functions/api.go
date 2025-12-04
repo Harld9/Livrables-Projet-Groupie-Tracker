@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"io"
 	"net/http"
+	"net/url"
 	"time"
 )
 
@@ -95,8 +96,9 @@ func GetSearchFilm(query string) ([]structure.PopularFilmsData, error) {
 
 	films := []structure.PopularFilmsData{}
 
+	// url.QueryEscape(query) premet d'encoder la string pour pas avoir d'erreur avec les espace, accents, etc
 	// URL de L'API
-	urlApi := "https://api.themoviedb.org/3/search/movie?query=" + query + "&include_adult=false&language=fr-FR"
+	urlApi := "https://api.themoviedb.org/3/search/movie?query=" + url.QueryEscape(query) + "&include_adult=false&language=fr-FR"
 
 	// Initialisation du client HTTP qui va émettre/demander les requêtes avec un temps d'arrêt après 2 secondes
 	httpClient := http.Client{
@@ -135,18 +137,18 @@ func GetSearchFilm(query string) ([]structure.PopularFilmsData, error) {
 	json.Unmarshal(body, &decodeData)
 
 	//Boucle qui remplit popularFilms avec les données récupérées dans la structure ApiData qu'on a décodé depuis le JSON
-	for i := 0; i <= len(decodeData.Results)-1; i++ {
+	//Le if permet d'exclure les films qui n'ont pas de poster
+	for i := 0; i < len(decodeData.Results); i++ {
 		var popularFilms structure.PopularFilmsData
-		popularFilms.Title = decodeData.Results[i].Title
-		popularFilms.Vote_Average = decodeData.Results[i].Vote_Average
-		popularFilms.Vote_Count = decodeData.Results[i].Vote_Count
-		popularFilms.Overview = decodeData.Results[i].Overview
-		popularFilms.Release_date = decodeData.Results[i].Release_date
-		popularFilms.Poster_path = "https://image.tmdb.org/t/p/original" + decodeData.Results[i].Poster_path
-
-		films = append(films, popularFilms)
+		if decodeData.Results[i].Poster_path != "" {
+			popularFilms.Title = decodeData.Results[i].Title
+			popularFilms.Vote_Average = decodeData.Results[i].Vote_Average
+			popularFilms.Vote_Count = decodeData.Results[i].Vote_Count
+			popularFilms.Overview = decodeData.Results[i].Overview
+			popularFilms.Release_date = decodeData.Results[i].Release_date
+			popularFilms.Poster_path = "https://image.tmdb.org/t/p/original" + decodeData.Results[i].Poster_path
+			films = append(films, popularFilms)
+		}
 	}
-
 	return films, nil
-
 }
