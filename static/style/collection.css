@@ -1,24 +1,32 @@
 /*On va utiliser ce style CSS pour les classes spécifiques à la page collection*/
-
 .eachfilm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
   padding: 20px;
   border-radius: 10px;
   width: 1300px;
+  background-color: #4b4e58;
 }
+
 
 .pfilmposter {
   width: 200px;
   border-radius: 10px;
 }
 
-.filmspopulaires {
-}
+.filmspopulaires {}
 
 .film {
   display: flex;
   gap: 20px;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
+}
+
+.film-content {
+  display: flex;
+  gap: 20px;
 }
 
 .releasedate {
@@ -26,6 +34,9 @@
   font-size: 13px;
   text-align: center;
 }
+
+.resume {}
+
 
 h1 {
   color: white;

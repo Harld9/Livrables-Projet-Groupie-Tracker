@@ -24,6 +24,10 @@ button {
   padding: 10px;
 }
 
+p {
+  color: white;
+}
+
 header {
   display: flex;
   align-items: center;
@@ -67,7 +71,6 @@ button:hover {
 
 /*NAVBAR*/
 nav {
-  flex: 1;
   display: flex;
   justify-content: center;
 }
