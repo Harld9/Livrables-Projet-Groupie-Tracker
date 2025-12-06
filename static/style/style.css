@@ -71,8 +71,10 @@ button:hover {
 
 /*NAVBAR*/
 nav {
-  display: flex;
+  flex: 1;
   justify-content: center;
+  width: 100%;
+  display: flex;
 }
 
 .navlinks {
