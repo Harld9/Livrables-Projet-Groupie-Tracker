@@ -24,6 +24,10 @@ button {
   padding: 10px;
 }
 
+p {
+  color: white;
+}
+
 header {
   display: flex;
   align-items: center;
@@ -52,8 +56,9 @@ header {
 }
 
 button {
-  padding: 7px 20px;
-  background-color: rgba(0, 133, 169, 1);
+  display: flex;
+  justify-content: center;
+  background-color: #E7000B;
   border: none;
   border-radius: 50px;
   cursor: pointer;
@@ -68,8 +73,9 @@ button:hover {
 /*NAVBAR*/
 nav {
   flex: 1;
-  display: flex;
   justify-content: center;
+  width: 100%;
+  display: flex;
 }
 
 .navlinks {

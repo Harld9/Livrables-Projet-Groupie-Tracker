@@ -137,10 +137,10 @@ func GetSearchFilm(query string) ([]structure.PopularFilmsData, error) {
 	json.Unmarshal(body, &decodeData)
 
 	//Boucle qui remplit popularFilms avec les données récupérées dans la structure ApiData qu'on a décodé depuis le JSON
-	//Le if permet d'exclure les films qui n'ont pas de poster
+	//Le if permet d'exclure les films qui n'ont pas de poster et pas de résumé
 	for i := 0; i < len(decodeData.Results); i++ {
 		var popularFilms structure.PopularFilmsData
-		if decodeData.Results[i].Poster_path != "" {
+		if decodeData.Results[i].Poster_path != "" && decodeData.Results[i].Overview != "" {
 			popularFilms.Title = decodeData.Results[i].Title
 			popularFilms.Vote_Average = decodeData.Results[i].Vote_Average
 			popularFilms.Vote_Count = decodeData.Results[i].Vote_Count
@@ -148,6 +148,7 @@ func GetSearchFilm(query string) ([]structure.PopularFilmsData, error) {
 			popularFilms.Release_date = decodeData.Results[i].Release_date
 			popularFilms.Poster_path = "https://image.tmdb.org/t/p/original" + decodeData.Results[i].Poster_path
 			films = append(films, popularFilms)
+
 		}
 	}
 	return films, nil
