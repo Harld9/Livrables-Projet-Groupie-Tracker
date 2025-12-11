@@ -44,8 +44,12 @@
         <div class="film">
             {{ range .PopularFilms }}
             <div class="eachfilm">
-                <img src="{{ .Poster_path }}" alt="Poster du film" class="pfilmposter">
-
+                <div class="film-content">
+                    <img src="{{ .Poster_path }}" alt="Poster du film" class="pfilmposter">
+                    <div class="resume">
+                        <p>{{ .Overview }}</p>
+                    </div>
+                </div>
                 <h2>{{ .Title }}</h2>
                 <p class="releasedate">{{ .Release_date }}</p>
             </div>
