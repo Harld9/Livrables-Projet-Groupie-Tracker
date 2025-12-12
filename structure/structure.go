@@ -14,12 +14,12 @@ type ApiData struct {
 	AccessToken string `json:"access_token"`
 }
 
-type jsonDataFavYay struct {
+type ForFavs struct {
 	user  string `json:"user"`
-	movie string `json:"movie"`
+	Title string `json:"movie"`
 }
 
-type ForFavs struct {
+type Films struct {
 	Title       string  `json:"title"`
 	Overview    string  `json:"overview"`
 	ReleaseDate string  `json:"release_date"`

@@ -155,7 +155,7 @@ func AddFavoris(w http.ResponseWriter, r *http.Request) {
 			json.Unmarshal(data, &favs)
 		}
 		//Ajouter le nouveau favori
-		favs = append(favs, structure.ForFavs{Title: movie})
+		favs = append(favs, structure.jsonDataFavYay{Title: movie})
 
 		//Enregistrer les favoris mis à jour
 		updatedData, _ := json.MarshalIndent(favs, "", "  ")
