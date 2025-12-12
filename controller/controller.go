@@ -3,9 +3,12 @@ package controller
 import (
 	"GroupieTracker/functions"
 	"GroupieTracker/structure"
+	"encoding/json"
 	"html/template"
+	"io"
 	"log"
 	"net/http"
+	"os"
 )
 
 // renderTemplate est une fonction utilitaire pour afficher un template HTML avec des données dynamiques
@@ -136,4 +139,97 @@ func Recherche(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("template/recherche.html"))
 	tmpl.Execute(w, data)
 
+}
+
+func AddFavoris(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodPost {
+		movie := r.FormValue("titre")
+		log.Println("ajout du film:", movie, "aux favoris.")
+
+		//Lire les favoris existants
+		data, err := os.ReadFile("data/favourite.json")
+		if err != nil {
+			log.Println("Erreur lecture fichier favoris:", err)
+			return
+		}
+
+		var favs []structure.ForFavs
+		if len(data) > 0 {
+			if err := json.Unmarshal(data, &favs); err != nil {
+				log.Println("Erreur décodage JSON favoris:", err)
+				return
+			}
+		}
+		//Ajouter le nouveau favori
+		favs = append(favs, structure.ForFavs{Title: movie})
+
+		//Enregistrer les favoris mis à jour
+		updatedData, _ := json.MarshalIndent(favs, "", "  ")
+		if err != nil {
+			log.Println("Erreur écriture fichier favoris:", err)
+			return
+		}
+
+		err = os.WriteFile("data/favourite.json", updatedData, 0644)
+		if err != nil {
+			log.Println("Erreur écriture fichier favoris:", err)
+			return
+		}
+		log.Println("Film ajouté aux favoris avec succès.")
+	}
+
+	http.Redirect(w, r, r.Header.Get("Referer"), http.StatusSeeOther)
+}
+
+// Télécharge les films populaires depuis l'API TMDB
+func GetMovies() ([]structure.PopularFilmsData, error) {
+	apiKey := "ff5610941052c91c0517d43bdfd5365e"
+	urlApi := "https://api.themoviedb.org/3/movie/popular?&language=fr-FR&api_key=" + apiKey
+
+	resp, err := http.Get(urlApi)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	body, _ := io.ReadAll(resp.Body)
+
+	var data structure.All
+	json.Unmarshal(body, &data)
+
+	return data.Results, nil
+}
+
+func findFilm(movies []structure.PopularFilmsData, title string) *structure.PopularFilmsData {
+	title = (title)
+
+	for _, m := range movies {
+		if (m.Title) == title {
+			return &m
+		}
+	}
+
+	return nil
+}
+
+func ShowFavs(w http.ResponseWriter, r *http.Request) {
+
+	data, _ := os.ReadFile("data/favourite.json")
+
+	var favs []structure.ForFavs
+	json.Unmarshal(data, &favs)
+
+	popular, _ := GetMovies()
+
+	selectedFav := []structure.PopularFilmsData{}
+
+	for _, fav := range favs {
+		movie := findFilm(popular, fav.Title)
+		if movie != nil {
+			selectedFav = append(selectedFav, *movie)
+		}
+	}
+
+	tmpl := template.Must(template.ParseFiles("template/favoris.html"))
+	tmpl.Execute(w, selectedFav)
 }
