@@ -37,7 +37,7 @@
             <div class="eachfilm">
                 <div class="film-content">
                     <img src="{{ .Poster_path }}" alt="Poster du film" class="pfilmposter">
-                    <form  method="post" action="/add_favoris" class="favform">
+                    <form  method="post" action="/add_favoris">
                         <input type="hidden" name="user" value="1">
                         <input type="hidden" name="titre" value="{{ .Title}}">
                         <button type="submit">❤</button>

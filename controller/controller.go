@@ -164,7 +164,7 @@ func AddFavoris(w http.ResponseWriter, r *http.Request) {
 		favs = append(favs, structure.ForFavs{Title: movie})
 
 		//Enregistrer les favoris mis à jour
-		updatedData, _ := json.MarshalIndent(favs, "", "  ")
+		updatedData, err := json.MarshalIndent(favs, "", "  ")
 		if err != nil {
 			log.Println("Erreur écriture fichier favoris:", err)
 			return
