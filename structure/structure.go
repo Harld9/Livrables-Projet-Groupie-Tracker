@@ -13,3 +13,20 @@ type ApiData struct {
 	TokenType   string `json:"token_type"`
 	AccessToken string `json:"access_token"`
 }
+
+type jsonDataFavYay struct {
+	user  string `json:"user"`
+	movie string `json:"movie"`
+}
+
+type ForFavs struct {
+	Title       string  `json:"title"`
+	Overview    string  `json:"overview"`
+	ReleaseDate string  `json:"release_date"`
+	PosterPath  string  `json:"poster_path"`
+	VoteAverage float64 `json:"vote_average"`
+}
+
+type All struct {
+	Results []PopularFilmsData `json:"results"`
+}

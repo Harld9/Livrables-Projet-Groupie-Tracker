@@ -30,7 +30,7 @@ func GetPopularFilms() ([]structure.PopularFilmsData, error) {
 
 	// Initialisation du client HTTP qui va émettre/demander les requêtes avec un temps d'arrêt après 2 secondes
 	httpClient := http.Client{
-		Timeout: time.Second * 2, // Timeout apres 2sec
+		Timeout: time.Second * 10, // Timeout apres 2sec
 	}
 
 	// Création de la requête HTTP vers L'API avec initialisation de la methode HTTP, la route et le corps de la requête, retourne rien si pas d'erreur, sinon retourne une erreur
@@ -102,7 +102,7 @@ func GetSearchFilm(query string) ([]structure.PopularFilmsData, error) {
 
 	// Initialisation du client HTTP qui va émettre/demander les requêtes avec un temps d'arrêt après 2 secondes
 	httpClient := http.Client{
-		Timeout: time.Second * 2, // Timeout apres 2sec
+		Timeout: time.Second * 5, // Timeout apres 2sec
 	}
 
 	// Création de la requête HTTP vers L'API avec initialisation de la methode HTTP, la route et le corps de la requête, retourne rien si pas d'erreur, sinon retourne une erreur
@@ -152,3 +152,11 @@ func GetSearchFilm(query string) ([]structure.PopularFilmsData, error) {
 	}
 	return films, nil
 }
+
+/*func SetFavouriteFilm(filename string, fav structure.Favourite) error {
+	err := SaveFavouriteFile(filename, fav)
+	if err != nil {
+		return err
+	}
+	return nil
+}*/
