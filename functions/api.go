@@ -14,12 +14,12 @@ func GetPopularFilms() ([]structure.PopularFilmsData, error) {
 	//Structure qui prend les données JSON
 	type ApiData struct {
 		Results []struct {
-			Title        string `json:"title"`
-			Vote_Average int    `json:"vote_Average"`
-			Vote_Count   int    `json:"vote_Count"`
-			Overview     string `json:"overview"`
-			Release_date string `json:"release_date"`
-			Poster_path  string `json:"Poster_path"`
+			Title        string  `json:"title"`
+			Vote_Average float32 `json:"vote_Average"`
+			Vote_Count   int     `json:"vote_Count"`
+			Overview     string  `json:"overview"`
+			Release_date string  `json:"release_date"`
+			Poster_path  string  `json:"Poster_path"`
 		}
 	}
 
@@ -68,11 +68,11 @@ func GetPopularFilms() ([]structure.PopularFilmsData, error) {
 	for i := 0; i <= len(decodeData.Results)-1; i++ {
 		var popularFilms structure.PopularFilmsData
 		popularFilms.Title = decodeData.Results[i].Title
-		popularFilms.Vote_Average = decodeData.Results[i].Vote_Average
-		popularFilms.Vote_Count = decodeData.Results[i].Vote_Count
+		popularFilms.VoteAverage = decodeData.Results[i].Vote_Average
+		popularFilms.VoteCount = decodeData.Results[i].Vote_Count
 		popularFilms.Overview = decodeData.Results[i].Overview
-		popularFilms.Release_date = decodeData.Results[i].Release_date
-		popularFilms.Poster_path = "https://image.tmdb.org/t/p/original" + decodeData.Results[i].Poster_path
+		popularFilms.ReleaseDate = decodeData.Results[i].Release_date
+		popularFilms.PosterPath = "https://image.tmdb.org/t/p/original" + decodeData.Results[i].Poster_path
 
 		films = append(films, popularFilms)
 	}
@@ -85,12 +85,12 @@ func GetSearchFilm(query string) ([]structure.PopularFilmsData, error) {
 	//Structure qui prend les données JSON
 	type ApiData struct {
 		Results []struct {
-			Title        string `json:"title"`
-			Vote_Average int    `json:"vote_Average"`
-			Vote_Count   int    `json:"vote_Count"`
-			Overview     string `json:"overview"`
-			Release_date string `json:"release_date"`
-			Poster_path  string `json:"Poster_path"`
+			Title        string  `json:"title"`
+			Vote_Average float32 `json:"vote_Average"`
+			Vote_Count   int     `json:"vote_Count"`
+			Overview     string  `json:"overview"`
+			Release_date string  `json:"release_date"`
+			Poster_path  string  `json:"Poster_path"`
 		}
 	}
 
@@ -142,11 +142,11 @@ func GetSearchFilm(query string) ([]structure.PopularFilmsData, error) {
 		var popularFilms structure.PopularFilmsData
 		if decodeData.Results[i].Poster_path != "" && decodeData.Results[i].Overview != "" {
 			popularFilms.Title = decodeData.Results[i].Title
-			popularFilms.Vote_Average = decodeData.Results[i].Vote_Average
-			popularFilms.Vote_Count = decodeData.Results[i].Vote_Count
+			popularFilms.VoteAverage = decodeData.Results[i].Vote_Average
+			popularFilms.VoteCount = decodeData.Results[i].Vote_Count
 			popularFilms.Overview = decodeData.Results[i].Overview
-			popularFilms.Release_date = decodeData.Results[i].Release_date
-			popularFilms.Poster_path = "https://image.tmdb.org/t/p/original" + decodeData.Results[i].Poster_path
+			popularFilms.ReleaseDate = decodeData.Results[i].Release_date
+			popularFilms.PosterPath = "https://image.tmdb.org/t/p/original" + decodeData.Results[i].Poster_path
 			films = append(films, popularFilms)
 
 		}

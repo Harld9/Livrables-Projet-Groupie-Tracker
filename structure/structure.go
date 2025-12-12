@@ -1,12 +1,12 @@
 package structure
 
 type PopularFilmsData struct {
-	Title        string
-	Vote_Average int
-	Vote_Count   int
-	Overview     string
-	Release_date string
-	Poster_path  string
+	Title       string
+	VoteAverage float32
+	VoteCount   int
+	Overview    string
+	ReleaseDate string
+	PosterPath  string
 }
 
 type ApiData struct {

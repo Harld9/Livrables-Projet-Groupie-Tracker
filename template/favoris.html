@@ -28,27 +28,25 @@
         <a href="/ressources" class="link-ressources"><img src="/static/img/infos.png" alt="Logo Information"></a>
         <a href="/favoris" class="link-favoris"> <img src="/static/img/favoris.png" alt="Logo Favoris"></a>
         <a class="signbtn link-login" href="login"> <button>Se connecter</button></a>
-
-
-
     </header>
-    <div class="filmspopulaires">
-        <h1>Films Populaires</h1>
-        <div class="film">
-            {{ range .PopularFilms }}
-            <div class="eachfilm">
-                <div class="film-content">
-                    <img src="{{ .Poster_path }}" alt="Poster du film" class="pfilmposter">
-                    <div class="resume">
-                        <p>{{ .Overview }}</p>
-                    </div>
-                </div>
-                <h2>{{ .Title }}</h2>
-                <p class="releasedate">{{ .Release_date }}</p>
-            </div>
-            {{ end }}
-        </div>
+    <body>
+
+    <h1>Mes Favoris</h1>
+
+    {{range .}}
+    <div class="movie">
+        <h2>{{.Title}}</h2>
+        <p>Date de sortie: {{.ReleaseDate}}</p>
+        {{if .PosterPath}}
+        <img src="https://image.tmdb.org/t/p/w200{{.PosterPath}}" alt="{{.Title}}">
+        {{end}}
+        <p>Note: {{.VoteAverage}} ({{.VoteCount}} votes)</p>
+        <p>{{.Overview}}</p>
+        <a href="https://www.themoviedb.org/movie/{{.ID}}" target="_blank">Voir sur TMDB</a>
     </div>
+    {{else}}
+    <p>Aucun favori pour le moment.</p>
+    {{end}}
 </body>
 
 </html>
