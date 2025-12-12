@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/static/style/index.css">
 </head>
 
-<body>
+<body id="page-accueil">
     <header>
         <div class="logoname"><a href="/" class="logo-link"><img class="logo" src="/static/img/futurlogo.png"
                     alt="logo"></a>
@@ -17,23 +17,41 @@
                 <p class="nomsite">Canal Moins</p>
             </a>
         </div>
+
         <nav>
             <ul class="navlinks">
-                <li><a href="/collection">Collection</a></li>
-                <li><a href="/recherche">Recherche</a></li>
-                <li><a href="/about">À Propos</a></li>
+                <li class="link-collection"><a href="/collection">Collection</a></li>
+                <li class="link-recherche"><a href="/recherche">Recherche</a></li>
+                <li class="link-about"><a href="/about">À Propos</a></li>
             </ul>
         </nav>
-        <a href="/recherche"><img src="/static/img/recherche.png" alt="Logo Recherche"></a>
-        <a href="/ressources"><img src="/static/img/infos.png" alt="Logo Information"></a>
-        <a href="/favoris"> <img src="/static/img/favoris.png" alt="Logo Favoris"></a>
-        <a class="signbtn" href="login"> <button>Se connecter</button></a>
 
-
-
+        <a href="/recherche" class="link-recherche"><img src="/static/img/recherche.png" alt="Logo Recherche"></a>
+        <a href="/ressources" class="link-ressources"><img src="/static/img/infos.png" alt="Logo Information"></a>
+        <a href="/favoris" class="link-favoris"> <img src="/static/img/favoris.png" alt="Logo Favoris"></a>
+        <a class="signbtn link-login" href="login"> <button>Se connecter</button></a>
     </header>
-
     <img src="/static/img/4645916.jpg" class="backgroundimg">
+
+    <div class="accueil">
+        <div class="accueil1">
+            <div class="accueil2">
+                <div class="box1">Collection</div>
+                <div class="box2">Films</div>
+                <div class="box3">Séries</div>
+                <div class="box4">Acteurs</div>
+                <div class="box5">Favoris</div>
+                <div class="box6">Inscription</div>
+            </div>
+            <div class="accueil3">
+                <h1>Description API</h1>
+                <p>Nous avons utilisé l'API TMDB</p>
+                <p>Les endpoints utilisés : </p>
+                <h1>Lien API</h1>
+                <p>Lien vers la doc de l'API :<a
+                        href="https://developer.themoviedb.org/docs/getting-started">https://developer.themoviedb.org/docs/getting-started</a>
+                </p>
+            </div>
 </body>
 
 </html>

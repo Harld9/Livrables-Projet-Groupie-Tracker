@@ -3,3 +3,82 @@
 .backgroundimg {
   display: none;
 }
+
+.accueil2 {
+  border: 1px solid #233558;
+  background-color: #101828;
+  padding: 20px;
+  border-radius: 10px;
+  width: 1300px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  margin: 20px auto;
+  height: max-content;
+  gap: 20px;
+}
+
+.accueil2 > div {
+  background-color: #41434c;
+  height: 150px;
+  width: 150px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 1.2rem;
+  transition: transform 0.2s;
+}
+
+.accueil2 > div:hover {
+  transform: scale(1.05);
+}
+
+.accueil3 {
+  border: 1px solid #233558;
+  background-color: #101828;
+  padding: 20px;
+  border-radius: 10px;
+  width: 1300px;
+  justify-content: center;
+  display: flex;
+  margin: 20px auto;
+  height: max-content;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 20px;
+  background: #1e2939;
+  border: 1px solid #7d7e7f;
+  transition: box-shadow 0.25s;
+}
+
+.search:focus-within {
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.75);
+}
+
+.search-input {
+  font-size: 16px;
+  color: #333;
+  margin-left: 14px;
+  outline: none;
+  border: none;
+  background: transparent;
+  width: 300px;
+  color: white;
+}
+
+.search-input::placeholder,
+.seach-icon {
+  color: rgba(125, 126, 127, 0.5);
+}
+
+h1 {
+  color: white;
+}
