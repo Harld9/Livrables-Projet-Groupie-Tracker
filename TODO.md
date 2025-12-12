@@ -2,10 +2,6 @@
 
 ## À faire
 
-
-
-- [ ] Mettre en place les templates
-- [ ] Faire les maquettes
 - [ ] Backend GO
 - [ ] CSS de la page d'accueil (index)
 - [ ] CSS de la page collection
@@ -28,3 +24,5 @@
 - [x] Configuration go mod
 - [x] Configurer le router
 - [x] Créer les controllers
+- [x] Mettre en place les templates
+- [x] Faire les maquettes
