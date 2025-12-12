@@ -143,23 +143,39 @@ func Recherche(w http.ResponseWriter, r *http.Request) {
 
 func AddFavoris(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
-		user := r.FormValue("user")
 		movie := r.FormValue("titre")
-		log.Println("Utilisateur:", user, "ajoute le film:", movie, "aux favoris.")
+		log.Println("ajout du film:", movie, "aux favoris.")
 
 		//Lire les favoris existants
-		data, _ := os.ReadFile("data/favourite.json")
+		data, err := os.ReadFile("data/favourite.json")
+		if err != nil {
+			log.Println("Erreur lecture fichier favoris:", err)
+			return
+		}
 
 		var favs []structure.ForFavs
 		if len(data) > 0 {
-			json.Unmarshal(data, &favs)
+			if err := json.Unmarshal(data, &favs); err != nil {
+				log.Println("Erreur décodage JSON favoris:", err)
+				return
+			}
 		}
 		//Ajouter le nouveau favori
-		favs = append(favs, structure.jsonDataFavYay{Title: movie})
+		favs = append(favs, structure.ForFavs{Title: movie})
 
 		//Enregistrer les favoris mis à jour
 		updatedData, _ := json.MarshalIndent(favs, "", "  ")
-		os.WriteFile("data/favourite.json", updatedData, 0644)
+		if err != nil {
+			log.Println("Erreur écriture fichier favoris:", err)
+			return
+		}
+
+		err = os.WriteFile("data/favourite.json", updatedData, 0644)
+		if err != nil {
+			log.Println("Erreur écriture fichier favoris:", err)
+			return
+		}
+		log.Println("Film ajouté aux favoris avec succès.")
 	}
 
 	http.Redirect(w, r, r.Header.Get("Referer"), http.StatusSeeOther)
