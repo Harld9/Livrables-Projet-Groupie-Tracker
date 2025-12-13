@@ -19,16 +19,28 @@
 }
 
 .accueil2 > div {
-  background-color: #41434c;
+  background-color: #101828;
   height: 150px;
-  width: 150px;
+  width: 400px;
   border-radius: 15px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: start;
   color: white;
-  font-size: 1.2rem;
   transition: transform 0.2s;
+  flex-direction: column;
+  border: 1px solid #233558;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.accueil2 > div > p {
+  margin-top: 5px;
+  color: rgb(216, 216, 216);
+}
+
+.accueil2 > div > h2 {
+  margin-top: 5px;
 }
 
 .accueil2 > div:hover {
@@ -81,4 +93,46 @@
 
 h1 {
   color: white;
+}
+
+.icon {
+  padding: 0;
+  margin: 0;
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.iconcolor {
+  border-radius: 15px;
+  height: 45px;
+  width: 45px;
+  display: flex;
+  justify-content: center;
+  object-fit: contain;
+  align-items: center;
+}
+
+.box1 .iconcolor {
+  background: linear-gradient(135deg, #a855f7, #7e22ce);
+}
+
+.box2 .iconcolor {
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+}
+
+.box3 .iconcolor {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+}
+
+.box4 .iconcolor {
+  background: linear-gradient(135deg, #22c55e, #15803d);
+}
+
+.box5 .iconcolor {
+  background: linear-gradient(135deg, #ec4899, #be185d);
+}
+
+.box6 .iconcolor {
+  background: linear-gradient(135deg, #f97316);
 }
