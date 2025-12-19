@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 )
 
 // renderTemplate est une fonction utilitaire pour afficher un template HTML avec des données dynamiques
@@ -142,30 +143,56 @@ func Recherche(w http.ResponseWriter, r *http.Request) {
 
 func AddFavoris(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
-		movie := r.FormValue("titre")
-		log.Println("ajout du film:", movie, "aux favoris.")
+		// Récupérer les valeurs du formulaire
+		title := r.FormValue("title")
+		overview := r.FormValue("overview")
+		releaseDate := r.FormValue("release_date")
+		posterPath := r.FormValue("poster_path")
+		voteAverageStr := r.FormValue("vote_average")
 
-		//Lire les favoris existants
+		// Convertir voteAverage en float64
+		voteAverage, err := strconv.ParseFloat(voteAverageStr, 64)
+		if err != nil {
+			log.Println("Erreur conversion vote_average:", err)
+			voteAverage = 0.0
+		}
+
+		// Lire les favoris existants
 		data, err := os.ReadFile("data/favourite.json")
 		if err != nil {
 			log.Println("Erreur lecture fichier favoris:", err)
 			return
 		}
 
-		var favs []structure.ForFavs
+		var favs []structure.Films
 		if len(data) > 0 {
 			if err := json.Unmarshal(data, &favs); err != nil {
 				log.Println("Erreur décodage JSON favoris:", err)
 				return
 			}
 		}
-		//Ajouter le nouveau favori
-		favs = append(favs, structure.ForFavs{Title: movie})
 
-		//Enregistrer les favoris mis à jour
+		// Déterminer le nouvel ID
+		newID := 1
+		if len(favs) > 0 {
+			newID = favs[len(favs)-1].Id + 1
+		}
+
+		// Ajouter le nouveau favori
+		newFilm := structure.Films{
+			Id:          newID,
+			Title:       title,
+			Overview:    overview,
+			ReleaseDate: releaseDate,
+			PosterPath:  posterPath,
+			VoteAverage: voteAverage,
+		}
+		favs = append(favs, newFilm)
+
+		// Enregistrer les favoris mis à jour
 		updatedData, err := json.MarshalIndent(favs, "", "  ")
 		if err != nil {
-			log.Println("Erreur écriture fichier favoris:", err)
+			log.Println("Erreur écriture JSON favoris:", err)
 			return
 		}
 
@@ -174,65 +201,30 @@ func AddFavoris(w http.ResponseWriter, r *http.Request) {
 			log.Println("Erreur écriture fichier favoris:", err)
 			return
 		}
-		log.Println("Film ajouté aux favoris avec succès.")
+
+		log.Println("Film ajouté aux favoris avec succès:", newFilm.Title)
 	}
 
 	http.Redirect(w, r, r.Header.Get("Referer"), http.StatusSeeOther)
 }
 
 func ShowFavs(w http.ResponseWriter, r *http.Request) {
-	// 1️⃣ Read favorites from JSON
 	data, err := os.ReadFile("data/favourite.json")
 	if err != nil {
-		log.Println("Erreur lecture fichier favoris:", err)
-		http.Error(w, "Erreur interne du serveur", http.StatusInternalServerError)
+		http.Error(w, "Erreur serveur", 500)
 		return
 	}
 
-	var favs []structure.ForFavs
+	var favs []structure.Films
 	if len(data) > 0 {
-		if err := json.Unmarshal(data, &favs); err != nil {
-			log.Println("Erreur décodage JSON favoris:", err)
-			http.Error(w, "Erreur interne du serveur", http.StatusInternalServerError)
-			return
-		}
+		json.Unmarshal(data, &favs)
 	}
 
-	// 2️⃣ Fetch popular films from API
-	popular, err := functions.GetPopularFilms()
-	if err != nil {
-		log.Println("Erreur récupération films populaires:", err)
-		http.Error(w, "Erreur interne du serveur", http.StatusInternalServerError)
-		return
-	}
-
-	// 3️⃣ Build lookup map (TITLE → movie)
-	movieMap := make(map[string]structure.PopularFilmsData)
-	for _, movie := range popular {
-		movieMap[movie.Title] = movie
-	}
-
-	// 4️⃣ Select favorites
-	SelectedFavs := make([]structure.PopularFilmsData, 0)
-
-	for _, fav := range favs {
-		if movie, exists := movieMap[fav.Title]; exists {
-			SelectedFavs = append(SelectedFavs, movie)
-		}
-	}
-
-	// 5️⃣ Parse template
 	tmpl, err := template.ParseFiles("template/favoris.html")
 	if err != nil {
-		log.Println("Erreur parsing template favoris:", err)
-		http.Error(w, "Erreur interne du serveur", http.StatusInternalServerError)
+		http.Error(w, "Erreur template", 500)
 		return
 	}
 
-	// 6️⃣ Execute template ONCE
-	if err := tmpl.Execute(w, SelectedFavs); err != nil {
-		log.Println("Erreur exécution template favoris:", err)
-		http.Error(w, "Erreur interne du serveur", http.StatusInternalServerError)
-		return
-	}
+	tmpl.Execute(w, favs)
 }
