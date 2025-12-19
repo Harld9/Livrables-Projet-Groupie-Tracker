@@ -9,8 +9,9 @@
     <link rel="stylesheet" href="/static/style/favoris.css">
 </head>
 
+
 <body id="page-favoris">
-    <header>
+   <header>
         <div class="logoname"><a href="/" class="logo-link"><img class="logo" src="/static/img/futurlogo.png"
                     alt="logo"></a>
             <a href="/" class="logo-link">
@@ -29,24 +30,54 @@
         <a href="/favoris" class="link-favoris"> <img src="/static/img/favoris.png" alt="Logo Favoris"></a>
         <a class="signbtn link-login" href="login"> <button>Se connecter</button></a>
     </header>
-    <body>
 
-    <h1>Mes Favoris</h1>
+    <!-- MAIN CONTENT -->
+    <main class="favoris-container">
 
-    {{range .}}
-    <div class="movie">
-        <h2>{{.Title}}</h2>
-        <p>Date de sortie: {{.ReleaseDate}}</p>
-        {{if .PosterPath}}
-        <img src="https://image.tmdb.org/t/p/w200{{.PosterPath}}" alt="{{.Title}}">
-        {{end}}
-        <p>Note: {{.VoteAverage}} ({{.VoteCount}} votes)</p>
-        <p>{{.Overview}}</p>
-        <a href="https://www.themoviedb.org/movie/{{.ID}}" target="_blank">Voir sur TMDB</a>
-    </div>
-    {{else}}
-    <p>Aucun favori pour le moment.</p>
-    {{end}}
+        <h1>Mes Favoris</h1>
+        <p class="subtitle">Vos films et séries préférés</p>
+
+        <!-- FILTER TABS -->
+        <div class="favoris-tabs">
+            <button class="tab active">Tous </button>
+            <button class="tab">Films </button>
+            <button class="tab">Séries </button>
+        </div>
+
+        <section class="cards-grid">
+
+            {{range .}}
+            <article class="card">
+
+                <div class="card-poster">
+                    {{if .PosterPath}}
+                    <img src="https://image.tmdb.org/t/p/w300{{.PosterPath}}" alt="{{.Title}}">
+                    {{end}}
+
+                    <span class="badge">Film </span>
+
+                    <span class="heart active">♥</span>
+                </div>
+
+                <div class="card-info">
+                    <h3 class="card-title">{{.Title}}</h3>
+
+                    <div class="card-meta">
+                        <span class="year">{{.ReleaseDate}}</span>
+                        <span class="rating">
+                            ⭐ {{printf "%.1f" .VoteAverage}}
+                        </span>
+                    </div>
+                </div>
+
+            </article>
+            {{else}}
+            <p class="empty">Aucun favori pour le moment.</p>
+            {{end}}
+
+        </section>
+
+    </main>
+
 </body>
-
 </html>

@@ -198,7 +198,7 @@ func ShowFavs(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	// 2️⃣ Get popular movies from TMDB
+	// 2️⃣ Fetch popular films from API
 	popular, err := functions.GetPopularFilms()
 	if err != nil {
 		log.Println("Erreur récupération films populaires:", err)
@@ -206,18 +206,22 @@ func ShowFavs(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// 3️⃣ Match favorites and populate structs
-	selectedFavs := []structure.PopularFilmsData{}
+	// 3️⃣ Build lookup map (TITLE → movie)
+	movieMap := make(map[string]structure.PopularFilmsData)
+	for _, movie := range popular {
+		movieMap[movie.Title] = movie
+	}
+
+	// 4️⃣ Select favorites
+	SelectedFavs := make([]structure.PopularFilmsData, 0)
+
 	for _, fav := range favs {
-		for _, movie := range popular {
-			if movie.Title == fav.Title {
-				selectedFavs = append(selectedFavs, movie)
-				break
-			}
+		if movie, exists := movieMap[fav.Title]; exists {
+			SelectedFavs = append(SelectedFavs, movie)
 		}
 	}
 
-	// 4️⃣ Parse template
+	// 5️⃣ Parse template
 	tmpl, err := template.ParseFiles("template/favoris.html")
 	if err != nil {
 		log.Println("Erreur parsing template favoris:", err)
@@ -225,8 +229,8 @@ func ShowFavs(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// 5️⃣ Execute template with slice of structs
-	if err := tmpl.Execute(w, selectedFavs); err != nil {
+	// 6️⃣ Execute template ONCE
+	if err := tmpl.Execute(w, SelectedFavs); err != nil {
 		log.Println("Erreur exécution template favoris:", err)
 		http.Error(w, "Erreur interne du serveur", http.StatusInternalServerError)
 		return

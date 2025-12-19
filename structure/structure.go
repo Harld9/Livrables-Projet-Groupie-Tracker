@@ -20,6 +20,7 @@ type ForFavs struct {
 }
 
 type Films struct {
+	Id          int     `json:"id"`
 	Title       string  `json:"title"`
 	Overview    string  `json:"overview"`
 	ReleaseDate string  `json:"release_date"`
