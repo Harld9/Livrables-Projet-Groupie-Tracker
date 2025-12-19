@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Collection</title>
+    <title>Acteurs</title>
     <link rel="stylesheet" href="/static/style/style.css">
     <link rel="stylesheet" href="/static/style/acteurs.css">
 </head>
@@ -30,24 +30,15 @@
     </header>
 
 
-    <div class="filmspopulaires">
-        <h1>Films Populaires</h1>
-        <div class="film">
-            {{ range .PopularFilms }}
-            <div class="eachfilm">
-                <div class="film-content">
-                    <img src="{{ .Poster_path }}" alt="Poster du film" class="pfilmposter">
-                    <form method="post" action="/add_favoris" class="favform">
-                        <input type="hidden" name="user" value="1">
-                        <input type="hidden" name="titre" value="{{ .Title}}">
-                        <button type="submit">❤</button>
-                    </form>
-                    <div class="resume">
-                        <p>{{ .Overview }}</p>
-                    </div>
+    <div class="acteurspopulaires">
+        <h1>Acteurs Populaires</h1>
+        <div class="acteur">
+            {{ range .PopularActors }}
+            <div class="eachacteur">
+                <div class="acteur-content">
+                    <img src="{{ .Profile_path }}" alt="Photo acteur" class="acteurposter">
                 </div>
-                <h2>{{ .Title }}</h2>
-                <p class="releasedate">{{ .Release_date }}</p>
+                <h2>{{ .Name }}</h2>
             </div>
             {{ end }}
         </div>

@@ -9,6 +9,11 @@ type PopularFilmsData struct {
 	Poster_path  string
 }
 
+type PopularActors struct {
+	Name         string
+	Profile_path string
+}
+
 type ApiData struct {
 	TokenType   string `json:"token_type"`
 	AccessToken string `json:"access_token"`

@@ -154,10 +154,67 @@ func GetSearchFilm(query string) ([]structure.PopularFilmsData, error) {
 	return films, nil
 }
 
-/*func SetFavouriteFilm(filename string, fav structure.Favourite) error {
-	err := SaveFavouriteFile(filename, fav)
-	if err != nil {
-		return err
+func GetActors() ([]structure.PopularActors, error) {
+	//Structure qui prend les données JSON
+	type ApiData struct {
+		Results []struct {
+			Name         string `json:"name"`
+			Profile_path string `json:"profile_path"`
+		}
 	}
-	return nil
-}*/
+
+	actors := []structure.PopularActors{}
+
+	// url.QueryEscape(query) premet d'encoder la string pour pas avoir d'erreur avec les espace, accents, etc
+	// URL de L'API
+	urlApi := "https://api.themoviedb.org/3/person/popular?language=fr-FR&page=1"
+
+	// Initialisation du client HTTP qui va émettre/demander les requêtes avec un temps d'arrêt après 2 secondes
+	httpClient := http.Client{
+		Timeout: time.Second * 5, // Timeout apres 2sec
+	}
+
+	// Création de la requête HTTP vers L'API avec initialisation de la methode HTTP, la route et le corps de la requête, retourne rien si pas d'erreur, sinon retourne une erreur
+	req, errReq := http.NewRequest(http.MethodGet, urlApi, nil)
+	if errReq != nil {
+		return nil, errReq
+	}
+
+	// Permet d'ajouter des infos au Header de la requête, ici le type de token et le token
+	req.Header.Add("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmZjU2MTA5NDEwNTJjOTFjMDUxN2Q0M2JkZmQ1MzY1ZSIsIm5iZiI6MTc2MDMwMTAwOC4wNzMsInN1YiI6IjY4ZWMwZmQwMzNkMWFlYTViOWE3MjZlZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ROh7GMpu3OqR6J1yM1sabgrt2ziwPc2e-38wnbjqMww")
+
+	// Execution de la requête HTTP vers L'API, retourne rien si pas d'erreur, sinon retourne une erreur
+	res, errResp := httpClient.Do(req)
+	if errResp != nil {
+		return nil, errResp
+	}
+
+	if res.Body != nil {
+		defer res.Body.Close()
+	}
+
+	// Lecture et récupération du corps de la requête HTTP, retourne rien si pas d'erreur, sinon retourne une erreur
+	body, errBody := io.ReadAll(res.Body)
+	if errBody != nil {
+		return nil, errBody
+	}
+
+	// Déclaration de la variable qui va contenir les données
+	var decodeData ApiData
+
+	// Decodage des données en format JSON et ajout des donnée à la variable: decodeData
+	json.Unmarshal(body, &decodeData)
+
+	//Boucle qui remplit popularFilms avec les données récupérées dans la structure ApiData qu'on a décodé depuis le JSON
+	//Le if permet d'exclure les films qui n'ont pas de poster et pas de résumé
+	for i := 0; i < len(decodeData.Results); i++ {
+		var popularActors structure.PopularActors
+		if decodeData.Results[i].Profile_path != "" && decodeData.Results[i].Name != "" {
+			popularActors.Name = decodeData.Results[i].Name
+			popularActors.Profile_path = "https://image.tmdb.org/t/p/original" + decodeData.Results[i].Profile_path
+			actors = append(actors, popularActors)
+
+		}
+	}
+	return actors, nil
+}

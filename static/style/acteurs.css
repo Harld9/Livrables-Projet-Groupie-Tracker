@@ -1,0 +1,42 @@
+/*On va utiliser ce style CSS pour les classes spécifiques à la page acteurs*/
+.eachacteur {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  width: 1300px;
+  background-color: #4b4e58;
+}
+
+.acteurposter {
+  width: 200px;
+  border-radius: 10px;
+}
+
+.acteur {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.acteur-content {
+  display: flex;
+  gap: 20px;
+}
+
+.resume {
+}
+
+h1 {
+  color: white;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+h2 {
+  color: white;
+  font-size: 20px;
+  text-align: center;
+}

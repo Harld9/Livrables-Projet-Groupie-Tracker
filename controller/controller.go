@@ -19,7 +19,8 @@ func renderTemplate(w http.ResponseWriter, filename string, data map[string]stri
 
 // Initialise la structure PageData qui sera chargée dans chaque template HTML
 type PageData struct {
-	PopularFilms []structure.PopularFilmsData
+	PopularFilms  []structure.PopularFilmsData
+	PopularActors []structure.PopularActors
 }
 
 // Fonction qui gère le template de la page Accueil
@@ -68,6 +69,19 @@ func Ressources(w http.ResponseWriter, r *http.Request) {
 func Favoris(w http.ResponseWriter, r *http.Request) {
 	data := PageData{}
 	tmpl := template.Must(template.ParseFiles("template/favoris.html"))
+	tmpl.Execute(w, data)
+}
+
+func Acteurs(w http.ResponseWriter, r *http.Request) {
+	actors, err := functions.GetActors()
+	if err != nil {
+		log.Println("Erreur récupération films:", err)
+		return
+	}
+	data := PageData{
+		PopularActors: actors,
+	}
+	tmpl := template.Must(template.ParseFiles("template/Acteurs.html"))
 	tmpl.Execute(w, data)
 }
 
@@ -183,24 +197,6 @@ func AddFavoris(w http.ResponseWriter, r *http.Request) {
 
 // Télécharge les films populaires depuis l'API TMDB
 func GetMovies() ([]structure.PopularFilmsData, error) {
-	apiKey := "ff5610941052c91c0517d43bdfd5365e"
-	urlApi := "https://api.themoviedb.org/3/movie/popular?&language=fr-FR&api_key=" + apiKey
-
-	resp, err := http.Get(urlApi)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-
-	body, _ := io.ReadAll(resp.Body)
-
-	var data structure.All
-	json.Unmarshal(body, &data)
-
-	return data.Results, nil
-}
-
-func GetActors() ([]structure.PopularFilmsData, error) {
 	apiKey := "ff5610941052c91c0517d43bdfd5365e"
 	urlApi := "https://api.themoviedb.org/3/movie/popular?&language=fr-FR&api_key=" + apiKey
 
