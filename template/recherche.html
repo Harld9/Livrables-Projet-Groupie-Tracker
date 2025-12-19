@@ -20,17 +20,15 @@
         </div>
         <nav>
             <ul class="navlinks">
-                <li><a href="/collection">Collection</a></li>
-                <li><a href="/about">À Propos</a></li>
+                <li class="link-collection"><a href="/collection">Collection</a></li>
+                <li class="link-recherche"><a href="/recherche">Recherche</a></li>
+                <li class="link-about"><a href="/about">À Propos</a></li>
             </ul>
         </nav>
-        <a href="/recherche"><img src="/static/img/recherche.png" alt="Logo Recherche"></a>
-        <a href="/ressources"><img src="/static/img/infos.png" alt="Logo Information"></a>
-        <a href="/favoris"> <img src="/static/img/favoris.png" alt="Logo Favoris"></a>
-        <a class="signbtn" href="login"> <button>Se connecter</button></a>
-
-
-
+        <a href="/recherche" class="link-recherche"><img src="/static/img/recherche.png" alt="Logo Recherche"></a>
+        <a href="/ressources" class="link-ressources"><img src="/static/img/infos.png" alt="Logo Information"></a>
+        <a href="/favoris" class="link-favoris"> <img src="/static/img/favoris.png" alt="Logo Favoris"></a>
+        <a class="signbtn link-login" href="login"> <button>Se connecter</button></a>
     </header>
 
     <form method="post">
@@ -45,7 +43,15 @@
             {{ range .PopularFilms }}
             <div class="eachfilm">
                 <div class="film-content">
-                    <img src="{{ .PosterPath }}" alt="Poster du film" class="pfilmposter">
+                    <form method="post" action="/add_favoris">
+                        <input type="hidden" name="titre" value="{{ .Title }}">
+                        <input type="hidden" name="overview" value="{{ .Overview }}">
+                        <input type="hidden" name="release_date" value="{{ .ReleaseDate }}">
+                        <input type="hidden" name="poster_path" value="{{ .PosterPath }}">
+                        <input type="hidden" name="vote_average" value="{{ .VoteAverage }}">
+                        <button type="submit">❤</button>
+                    </form>
+                    <img src="{{ .PosterPath }}" alt="Poster du film" class="pfilmposter" >
                     <div class="resume">
                         <p>{{ .Overview }}</p>
                     </div>
