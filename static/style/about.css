@@ -1,4 +1,67 @@
 /*On va utiliser ce style CSS pour les classes spécifiques à la page about*/
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 32px;
+    background: rgba(2, 6, 23, 0.95);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.topbar-left .logo-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.logo {
+    width: 58px;
+}
+
+.nomsite {
+    color: #f43f5e;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.topbar-center {
+    flex: 1;
+    max-width: 480px;
+    margin: 0 32px;
+}
+
+.searchbar {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 10px;
+    background: #020617;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #e5e7eb;
+    outline: none;
+}
+
+.searchbar::placeholder {
+    color: #9ca3af;
+}
+
+.topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.topbar-right img {
+    width: 20px;
+    opacity: 0.85;
+    transition: opacity 0.2s;
+}
+
+.topbar-right img:hover {
+    opacity: 1;
+}
+
+
 .social-links-container {
   display: flex;
   flex-direction: column;

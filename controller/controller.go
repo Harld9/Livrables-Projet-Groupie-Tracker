@@ -9,6 +9,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 )
 
 // renderTemplate est une fonction utilitaire pour afficher un template HTML avec des données dynamiques
@@ -156,40 +157,78 @@ func Recherche(w http.ResponseWriter, r *http.Request) {
 }
 
 func AddFavoris(w http.ResponseWriter, r *http.Request) {
-	if r.Method == http.MethodPost {
-		movie := r.FormValue("titre")
-		log.Println("ajout du film:", movie, "aux favoris.")
+	if r.Method != http.MethodPost { // Vérifie que la méthode est POST
+		http.Redirect(w, r, r.Header.Get("Referer"), http.StatusSeeOther)
+		return
+	}
 
-		//Lire les favoris existants
-		data, err := os.ReadFile("data/favourite.json")
-		if err != nil {
-			log.Println("Erreur lecture fichier favoris:", err)
+	title := r.FormValue("titre") // Récupère le titre du film depuis le formulaire
+	overview := r.FormValue("overview")
+	release_date := r.FormValue("release_date")
+	poster_path := r.FormValue("poster_path")
+	voteAveragestr := r.FormValue("vote_average")
+	voteAverage, err := strconv.ParseFloat(voteAveragestr, 64)
+	if err != nil {
+		log.Println("Erreur conversion vote_average:", err)
+		http.Redirect(w, r, r.Header.Get("Referer"), http.StatusSeeOther)
+		return
+	}
+
+	// Lit le fichier JSON des favoris existants
+
+	data, err := os.ReadFile("data/favourite.json")
+	if err != nil {
+		log.Println("Erreur lecture fichier favoris:", err)
+		http.Redirect(w, r, r.Header.Get("Referer"), http.StatusSeeOther)
+		return
+	}
+
+	var favs []structure.Films
+	if len(data) > 0 {
+		if err := json.Unmarshal(data, &favs); err != nil {
+			log.Println("Erreur décodage JSON favoris:", err)
+			http.Redirect(w, r, r.Header.Get("Referer"), http.StatusSeeOther)
 			return
 		}
+	}
 
-		var favs []structure.ForFavs
-		if len(data) > 0 {
-			if err := json.Unmarshal(data, &favs); err != nil {
-				log.Println("Erreur décodage JSON favoris:", err)
-				return
-			}
+	found := false
+	newFavs := []structure.Films{}
+	for _, f := range favs {
+		if f.Title == title {
+			found = true
+			continue
 		}
-		//Ajouter le nouveau favori
-		favs = append(favs, structure.ForFavs{Title: movie})
+		newFavs = append(newFavs, f)
+	}
 
-		//Enregistrer les favoris mis à jour
-		updatedData, _ := json.MarshalIndent(favs, "", "  ")
-		if err != nil {
-			log.Println("Erreur écriture fichier favoris:", err)
-			return
+	if !found {
+		newID := 1
+		if len(favs) > 0 {
+			newID = favs[len(favs)-1].Id + 1
 		}
 
-		err = os.WriteFile("data/favourite.json", updatedData, 0644)
-		if err != nil {
-			log.Println("Erreur écriture fichier favoris:", err)
-			return
+		newFav := structure.Films{
+			Id:          newID,
+			Title:       title,
+			Overview:    overview,
+			ReleaseDate: release_date,
+			PosterPath:  poster_path,
+			VoteAverage: voteAverage,
 		}
-		log.Println("Film ajouté aux favoris avec succès.")
+		newFavs = append(newFavs, newFav)
+		log.Println("Film ajouté aux favoris:", title)
+	} else {
+		log.Println("Film retiré des favoris:", title)
+	}
+
+	updatedData, err := json.MarshalIndent(newFavs, "", "  ")
+	if err != nil {
+		log.Println("Erreur écriture JSON favoris:", err)
+	}
+
+	if err := os.WriteFile("data/favourite.json", updatedData, 0644); err != nil {
+		log.Println("Erreur écriture fichier favoris:", err)
 	}
 
 	http.Redirect(w, r, r.Header.Get("Referer"), http.StatusSeeOther)
@@ -227,23 +266,22 @@ func findFilm(movies []structure.PopularFilmsData, title string) *structure.Popu
 }
 
 func ShowFavs(w http.ResponseWriter, r *http.Request) {
-
-	data, _ := os.ReadFile("data/favourite.json")
-
-	var favs []structure.ForFavs
-	json.Unmarshal(data, &favs)
-
-	popular, _ := GetMovies()
-
-	selectedFav := []structure.PopularFilmsData{}
-
-	for _, fav := range favs {
-		movie := findFilm(popular, fav.Title)
-		if movie != nil {
-			selectedFav = append(selectedFav, *movie)
-		}
+	data, err := os.ReadFile("data/favourite.json")
+	if err != nil {
+		http.Error(w, "Erreur serveur", 500)
+		return
 	}
 
-	tmpl := template.Must(template.ParseFiles("template/favoris.html"))
-	tmpl.Execute(w, selectedFav)
+	var favs []structure.Films
+	if len(data) > 0 {
+		json.Unmarshal(data, &favs)
+	}
+
+	tmpl, err := template.ParseFiles("template/favoris.html")
+	if err != nil {
+		http.Error(w, "Erreur template", 500)
+		return
+	}
+
+	tmpl.Execute(w, favs)
 }

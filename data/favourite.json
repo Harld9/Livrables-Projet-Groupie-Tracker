@@ -1,1 +1,26 @@
-{}
+[
+  {
+    "id": 1,
+    "title": "Five Nights at Freddy's 2",
+    "overview": "N'importe qui peut survivre à cinq nuits. Cette fois, il n'y aura pas de seconde chance.",
+    "release_date": "2025-12-03",
+    "poster_path": "https://image.tmdb.org/t/p/original/enRyaRthhsuAqBwzYKqb7VfCJg.jpg",
+    "vote_average": 6.3
+  },
+  {
+    "id": 3,
+    "title": "Demon Slayer : Kimetsu no Yaiba - Le film : La Forteresse infinie",
+    "overview": "L'armée des pourfendeurs de démons est attirée dans la Forteresse Infinie, où Tanjiro, Zenitsu et Inosuke  affrontent de terrifiants démons de rang supérieur dans un combat désespéré alors que la bataille finale contre Kibutsuji Muzan commence.",
+    "release_date": "2025-07-18",
+    "poster_path": "https://image.tmdb.org/t/p/original/wXTU3AFmlUPbqjH68MZ989uHd6k.jpg",
+    "vote_average": 7.628
+  },
+  {
+    "id": 4,
+    "title": "Harold Francois le Magnifique",
+    "overview": "Au cœur des années Reagan, Patrick Bateman est un pur produit de la réussite américaine. Jeune, riche, il est un de ces golden boys qui triomphent à la bourse. Seul le nec plus ultra est digne de lui et il s'emploie à ne retrouver que des symboles qui lui renvoient une image de succès. Il accumule, avec une obsession maladive, les vêtements de luxe, les relations enviables. Son vœu le plus cher est de se fondre dans cette foule, de trouver sa place au milieu de ceux auxquels il s'identifie.",
+    "release_date": "2000-04-13",
+    "poster_path": "https://image.tmdb.org/t/p/original/2DWqsx0vafGcfytSIwhtL5nI1uV.jpg",
+    "vote_average": 10.0
+  }
+]

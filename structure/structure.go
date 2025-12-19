@@ -1,12 +1,12 @@
 package structure
 
 type PopularFilmsData struct {
-	Title        string
-	Vote_Average int
-	Vote_Count   int
-	Overview     string
-	Release_date string
-	Poster_path  string
+	Title       string
+	VoteAverage float32
+	VoteCount   int
+	Overview    string
+	ReleaseDate string
+	PosterPath  string
 }
 
 type PopularActors struct {
@@ -25,6 +25,7 @@ type ForFavs struct {
 }
 
 type Films struct {
+	Id          int     `json:"id"`
 	Title       string  `json:"title"`
 	Overview    string  `json:"overview"`
 	ReleaseDate string  `json:"release_date"`
