@@ -200,6 +200,24 @@ func GetMovies() ([]structure.PopularFilmsData, error) {
 	return data.Results, nil
 }
 
+func GetActors() ([]structure.PopularFilmsData, error) {
+	apiKey := "ff5610941052c91c0517d43bdfd5365e"
+	urlApi := "https://api.themoviedb.org/3/movie/popular?&language=fr-FR&api_key=" + apiKey
+
+	resp, err := http.Get(urlApi)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	body, _ := io.ReadAll(resp.Body)
+
+	var data structure.All
+	json.Unmarshal(body, &data)
+
+	return data.Results, nil
+}
+
 func findFilm(movies []structure.PopularFilmsData, title string) *structure.PopularFilmsData {
 	title = (title)
 

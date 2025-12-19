@@ -18,7 +18,13 @@
   gap: 20px;
 }
 
-.accueil2 > div {
+.accueil2 > a {
+  text-decoration: none;
+  color: inherit;
+  display: contents;
+}
+
+.accueil2 > a > div {
   background-color: #101828;
   height: 150px;
   width: 400px;
@@ -34,16 +40,16 @@
   padding-right: 10px;
 }
 
-.accueil2 > div > p {
+.accueil2 > a > div > p {
   margin-top: 5px;
   color: rgb(216, 216, 216);
 }
 
-.accueil2 > div > h2 {
+.accueil2 > a > div > h2 {
   margin-top: 5px;
 }
 
-.accueil2 > div:hover {
+.accueil2 > a > div:hover {
   transform: scale(1.05);
 }
 
